@@ -14,13 +14,41 @@
 	"commands": [
 		{
 			"name": "search-bookmarks",
-			"title": "Search Bookmarks",
+			"title": "(DEV) Search Bookmarks",
 			"subtitle": "Search Bookmarks",
 			"description": "Search bookmarks from any chromium browser installed on your system. The browsers are automatically detected.",
 			"mode": "view"
 		}
 	],
-	"preferences": [],
+	"preferences": [
+	{
+		"name": "show-favicons",
+		"title": "Show Favicons",
+		"label": "Show website favicons",
+		"description": "Show website favicons instead of the default bookmark icon. \nNote: This may request favicon URLs from a remote provider.",
+		"type": "checkbox",
+		"required": false,
+		"default": false
+	},
+	{
+		"name": "bookmark-display-limit",
+		"title": "Bookmark Display Limit",
+		"description": "Maximum number of bookmarks to render at once. Lower = Faster! \nUse 0 to render all bookmarks.",
+		"type": "textfield",
+		"required": false,
+		"default": "100",
+		"placeholder": "100"
+	},
+	{
+		"name": "show-url-in-subtitle",
+		"title": "Show Full URL",
+		"label": "Show full URL instead of domain",
+		"description": "Display the full bookmark URL as the subtitle instead of only the domain.",
+		"type": "checkbox",
+		"required": false,
+		"default": false
+	}
+],
 	"scripts": {
 		"build": "vici build",
 		"dev": "vici develop",
