@@ -304,6 +304,7 @@ const BookmarkList = () => {
 									<Action
 										title="Toggle Bookmark Details"
 										icon={Icon.Bookmark}
+										shortcut={{ modifiers: ["ctrl"], key: "d" }}
 										onAction={() => setShowingDetail((v) => !v)}
 									/>
 									{!favorite && (
@@ -324,7 +325,7 @@ const BookmarkList = () => {
 									)}
 									<Action.CreateQuicklink
 										title="Create Shortcut"
-										icon={Icon.PlusCircle}
+										icon={Icon.Link}
 										shortcut={{ modifiers: ["ctrl"], key: "s" }}
 										quicklink={{
 											name: getShortcutName(bookmark),
