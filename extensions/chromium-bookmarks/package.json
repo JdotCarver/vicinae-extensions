@@ -14,7 +14,7 @@
 	"commands": [
 		{
 			"name": "search-bookmarks",
-			"title": "(DEV) Search Bookmarks",
+			"title": "Search Bookmarks",
 			"subtitle": "Search Bookmarks",
 			"description": "Search bookmarks from any chromium browser installed on your system. The browsers are automatically detected.",
 			"mode": "view"
@@ -25,7 +25,7 @@
 		"name": "show-favicons",
 		"title": "Show Favicons",
 		"label": "Show website favicons",
-		"description": "Show website favicons instead of the default bookmark icon. \nNote: This may request favicon URLs from a remote provider.",
+		"description": "Show website favicons instead of the default bookmark icon. \nNote: This will enable requesting favicon URLs from a remote provider.",
 		"type": "checkbox",
 		"required": false,
 		"default": false
