@@ -20,7 +20,35 @@
 			"mode": "view"
 		}
 	],
-	"preferences": [],
+	"preferences": [
+	{
+		"name": "show-favicons",
+		"title": "Show Favicons",
+		"label": "Show website favicons",
+		"description": "Show website favicons instead of the default bookmark icon. \nNote: This will enable requesting favicon URLs from a remote provider.",
+		"type": "checkbox",
+		"required": false,
+		"default": false
+	},
+	{
+		"name": "bookmark-render-limit",
+		"title": "Bookmark Render Limit",
+		"description": "Limit the number of Bookmark entries to render results faster. Set to 0 to disable the render limit.",
+		"type": "textfield",
+		"required": false,
+		"default": "100",
+		"placeholder": "100"
+	},
+	{
+		"name": "show-url-in-subtitle",
+		"title": "Show Full URL",
+		"label": "Show full URL",
+		"description": "Display the full URL instead of the domain.",
+		"type": "checkbox",
+		"required": false,
+		"default": false
+	}
+],
 	"scripts": {
 		"build": "vici build",
 		"dev": "vici develop",
