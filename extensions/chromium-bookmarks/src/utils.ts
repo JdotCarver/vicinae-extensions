@@ -3,13 +3,18 @@ import { homedir } from "node:os";
 import * as path from "node:path";
 import { Color, Icon } from "@vicinae/api";
 
-export const extractHost = (url: string) => {
+export const extractHost = (url: string): string | null => {
 	try {
 		return new URL(url).hostname.replace(/^www\./, "");
-	} catch {
+	} catch (_) {
 		return null;
 	}
 };
+
+export const configHome = () => {
+	return process.env.XDG_CONFIG_HOME ?? path.join(homedir(), ".config");
+};
+
 
 export const expandHome = (p: string) => {
 	if (p === "~") return homedir();
@@ -17,14 +22,11 @@ export const expandHome = (p: string) => {
 	return p;
 };
 
-export const configHome = () =>
-	process.env.XDG_CONFIG_HOME ?? path.join(homedir(), ".config");
-
-export const safeAccess = async (p: string, mode?: number) => {
+export const safeAccess = async (path: string, mode?: number) => {
 	try {
-		await fsp.access(p, mode);
+		await fsp.access(path, mode);
 		return true;
-	} catch {
+	} catch (_) {
 		return false;
 	}
 };
@@ -41,7 +43,7 @@ export const faviconIcon = ({
 	const defaultIcon = favorite
 		? {
 				source: Icon.Star,
-				tintColor: Color.Yellow,
+				tintColor: "#fffac1",
 			}
 		: {
 		source: Icon.Bookmark,
