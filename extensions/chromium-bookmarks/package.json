@@ -8,7 +8,9 @@
 	],
 	"license": "MIT",
 	"author": "aurelleb",
-	"contributors": [],
+	"contributors": [
+		"JdotCarver"
+	],
 	"pastContributors": [],
 	"icon": "extension_icon.png",
 	"commands": [
