@@ -1,7 +1,15 @@
-import { Color, Icon } from "@vicinae/api";
+import * as fsp from "node:fs/promises";
 import { homedir } from "node:os";
 import * as path from "node:path";
-import * as fsp from "node:fs/promises";
+import { Color, Icon } from "@vicinae/api";
+
+export const extractHost = (url: string) => {
+	try {
+		return new URL(url).hostname.replace(/^www\./, "");
+	} catch {
+		return null;
+	}
+};
 
 export const expandHome = (p: string) => {
 	if (p === "~") return homedir();
@@ -18,14 +26,6 @@ export const safeAccess = async (p: string, mode?: number) => {
 		return true;
 	} catch {
 		return false;
-	}
-};
-
-export const extractHost = (url: string) => {
-	try {
-		return new URL(url).hostname.replace(/^www\./, "");
-	} catch {
-		return null;
 	}
 };
 
