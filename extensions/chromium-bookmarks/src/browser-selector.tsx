@@ -17,7 +17,6 @@ export const BrowserSelector = ({
 				value="all"
 				icon={Icon.Bookmark}
 			/>
-
 			{browsers.map((browser) => (
 				<List.Dropdown.Item
 					key={browser.id}
