@@ -31,9 +31,9 @@
 		"default": false
 	},
 	{
-		"name": "bookmark-display-limit",
-		"title": "Bookmark Display Limit",
-		"description": "Maximum number of bookmarks to render at once. Lower = Faster! \nUse 0 to render all bookmarks.",
+		"name": "bookmark-render-limit",
+		"title": "Bookmark Render Limit",
+		"description": "Limit the number of Bookmark entries to render results faster. Set to 0 to disable the render limit.",
 		"type": "textfield",
 		"required": false,
 		"default": "100",
@@ -42,8 +42,8 @@
 	{
 		"name": "show-url-in-subtitle",
 		"title": "Show Full URL",
-		"label": "Show full URL instead of domain",
-		"description": "Display the full bookmark URL as the subtitle instead of only the domain.",
+		"label": "Show full URL",
+		"description": "Display the full URL instead of the domain.",
 		"type": "checkbox",
 		"required": false,
 		"default": false
