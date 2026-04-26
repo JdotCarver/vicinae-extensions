@@ -1,8 +1,8 @@
 import { Cache } from "@vicinae/api";
 import * as fsp from "node:fs/promises";
+import { expandHome, safeAccess } from "./utils";
 import * as path from "node:path";
 import { useEffect, useState } from "react";
-import { expandHome, safeAccess } from "./utils";
 
 const browserIcons = {
 	brave: "browsers/brave.svg",
@@ -28,17 +28,17 @@ type BookmarkBase = {
 };
 
 export type UrlBookmark = BookmarkBase & {
-  type: "url";
-  url: string;
+	type: "url";
+	url: string;
 };
 
 export type FlattenedBrowserBookmark = {
-  id: string;
-  browser: ChromiumBrowser;
-  profile: string;
-  bookmark: UrlBookmark;
-  folder?: string;
-  favorite: boolean;
+	id: string;
+	browser: ChromiumBrowser;
+	profile: string;
+	bookmark: UrlBookmark;
+	folder?: string;
+	favorite: boolean;
 };
 
 const cache = new Cache();
@@ -239,38 +239,37 @@ const fromChromeTimestamp = (value?: string) => {
 let favorites: Set<string> | null = null;
 
 const getFavorites = () => {
-  if (!favorites) {
-    const set = new Set<string>(
-      JSON.parse(cache.get(FAVORITES_CACHE_KEY) ?? "[]"),
-    );
-    favorites = set;
-    return set;
-  }
-
-  return favorites;
+	if (!favorites) {
+		const set = new Set<string>(
+			JSON.parse(cache.get(FAVORITES_CACHE_KEY) ?? "[]"),
+		);
+		favorites = set;
+		return set;
+	}
+	return favorites;
 };
 
 const saveFavorites = async (favorites: Set<string>) => {
-  cache.set(FAVORITES_CACHE_KEY, JSON.stringify(Array.from(favorites)));
+	cache.set(FAVORITES_CACHE_KEY, JSON.stringify(Array.from(favorites)));
 };
 
 export const addFavorite = async (guid: string) => {
-  const f = getFavorites();
-  f.add(guid);
-  await saveFavorites(f);
+	const f = getFavorites();
+	f.add(guid);
+	await saveFavorites(f);
 };
 
 export const removeFavorite = async (guid: string) => {
-  const f = getFavorites();
-  f.delete(guid);
-  await saveFavorites(f);
+	const f = getFavorites();
+	f.delete(guid);
+	await saveFavorites(f);
 };
 
 export const isFavoriteBookmark = (guid: string) => {
-  return getFavorites().has(guid);
+	return getFavorites().has(guid);
 };
 
-type BookmarkFileMeta = {
+type BookmarkFileMetadata = {
 	browserId: string;
 	profile: string;
 	path: string;
@@ -279,14 +278,14 @@ type BookmarkFileMeta = {
 	mtimeMs: number;
 };
 
-type InternalBookmarkFileMeta = BookmarkFileMeta & {
+type InternalBookmarkFileMetadata = BookmarkFileMetadata & {
 	score: number;
 };
 
-const getBookmarkFilesMeta = async (
+const getBookmarkFilesMetadata = async (
 	browsers: ChromiumBrowser[],
-): Promise<BookmarkFileMeta[]> => {
-	const metasByRealPath = new Map<string, InternalBookmarkFileMeta>();
+): Promise<BookmarkFileMetadata[]> => {
+	const metasByRealPath = new Map<string, InternalBookmarkFileMetadata>();
 
 	for (const browser of browsers) {
 		for (const profile of browser.profiles) {
@@ -296,7 +295,7 @@ const getBookmarkFilesMeta = async (
 				const stat = await fsp.stat(bookmarksPath);
 				const realBookmarksPath = await realPathOrSelf(bookmarksPath);
 
-				const meta: InternalBookmarkFileMeta = {
+				const meta: InternalBookmarkFileMetadata = {
 					browserId: browser.id,
 					profile,
 					path: bookmarksPath,
@@ -320,7 +319,7 @@ const getBookmarkFilesMeta = async (
 	return Array.from(metasByRealPath.values()).map(({ score: _, ...meta }) => meta);
 };
 
-const makeBookmarksSignature = (metas: BookmarkFileMeta[]) => {
+const makeBookmarksSignature = (metas: BookmarkFileMetadata[]) => {
   return metas
 		.map((m) => `${m.browserId}:${m.realPath}:${m.size}:${m.mtimeMs}`)
     .sort()
@@ -467,10 +466,9 @@ const parseBookmarkFileFlat = async ({
 };
 
 const getBookmarksFresh = async (
-  browsers: ChromiumBrowser[],
-  metas: BookmarkFileMeta[],
-) => {
-	const browserById = new Map(browsers.map((browser) => [browser.id, browser]));
+	browsers: ChromiumBrowser[],
+	metas: BookmarkFileMetadata[],
+) => { const browserById = new Map(browsers.map((browser) => [browser.id, browser]));
 
   const chunks = await Promise.all(
     metas.map(async (meta) => {
@@ -546,7 +544,7 @@ export const useBookmarks = () => {
       setLoading(true);
 
       try {
-        const metas = await getBookmarkFilesMeta(browsers);
+        const metas = await getBookmarkFilesMetadata(browsers);
         const signature = makeBookmarksSignature(metas);
 
         const cached = getCachedBookmarks(signature);
