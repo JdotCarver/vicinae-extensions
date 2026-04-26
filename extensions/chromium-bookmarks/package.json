@@ -24,8 +24,8 @@
 	{
 		"name": "show-favicons",
 		"title": "Show Favicons",
-		"label": "Show website favicons",
-		"description": "Show website favicons instead of the default bookmark icon. \nNote: This will enable requesting favicon URLs from a remote provider.",
+		"label": "Show Website Favicons",
+		"description": "Show the website's favicon instead of the default bookmark icon. \nNote: This will enable requesting favicon URLs from a remote provider (DuckDuckGo).",
 		"type": "checkbox",
 		"required": false,
 		"default": false
@@ -33,7 +33,7 @@
 	{
 		"name": "bookmark-render-limit",
 		"title": "Bookmark Render Limit",
-		"description": "Limit the number of Bookmark entries to render results faster. Set to 0 to disable the render limit.",
+		"description": "Limit the number of Bookmark entries to render results faster. \nSetting it to 0 will disable the render limit.",
 		"type": "textfield",
 		"required": false,
 		"default": "100",
