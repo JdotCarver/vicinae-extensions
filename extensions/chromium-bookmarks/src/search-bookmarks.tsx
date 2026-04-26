@@ -320,16 +320,6 @@ const { visibleBookmarks, totalMatchingBookmarks } = useMemo(() => {
 										onAction={() => setShowingDetail((value) => !value)}
 							/>
 
-							<Action.CreateQuicklink
-								title="Create Shortcut"
-								icon={Icon.PlusCircle}
-								shortcut={{ modifiers: ["ctrl"], key: "s" }}
-								quicklink={{
-									name: getShortcutName(bookmark),
-									link: bookmark.url,
-									icon: Icon.Bookmark,
-								}}
-							/>
 							{!favorite && (
 								<Action
 									title="Add to Favorites"
@@ -347,6 +337,25 @@ const { visibleBookmarks, totalMatchingBookmarks } = useMemo(() => {
 									onAction={() => removeFromFavorites(bookmark.id)}
 								/>
 							)}
+
+							<Action.CreateQuicklink
+								title="Create Shortcut"
+								icon={Icon.PlusCircle}
+								shortcut={{ modifiers: ["ctrl"], key: "s" }}
+								quicklink={{
+									name: getShortcutName(bookmark),
+									link: bookmark.url,
+									icon: Icon.Bookmark,
+								}}
+							/>
+
+								<Action
+									title="Extension Settings"
+									icon={Icon.Cog}
+									onAction={() => open("vicinae://settings/open?tab=@aurelleb/chromium-bookmarks")}
+									shortcut={{ modifiers: ["ctrl"], key: "," }}
+								/>
+
 						</ActionPanel>
 					}
 				/>
